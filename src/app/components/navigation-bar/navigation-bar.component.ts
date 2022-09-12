@@ -1,10 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-
-export interface route {
-    label: string;
-    url: string;
-    icon?: string;
-}
+import { Route } from '../route';
 
 @Component({
     selector: 'app-navigation-bar',
@@ -12,7 +7,7 @@ export interface route {
     styleUrls: ['./navigation-bar.component.scss'],
 })
 export class NavigationBarComponent implements OnInit {
-    @Input() routes!: route[];
+    @Input() routes!: Route[];
 
     constructor() {}
 
