@@ -16,6 +16,13 @@ const routes: Routes = [
             ),
     },
     {
+        path: 'transaction',
+        loadChildren: () =>
+            import('./transaction/transaction.module').then(
+                (m) => m.TransactionModule
+            ),
+    },
+    {
         path: '**',
         component: NotFoundComponent,
     },
