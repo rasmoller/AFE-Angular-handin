@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Route } from '../route';
+import { Route } from '@Types/base/route';
 
 @Component({
     selector: 'app-navigation-bar',

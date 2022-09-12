@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Route } from '@Types/base/route';
 
 @Component({
     selector: 'app-root',
@@ -7,4 +8,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
     title = 'HandIn1';
+
+    routes: Route[] = [
+        {
+            label: 'Credit cards',
+            url: '/credit-card',
+        },
+        {
+            label: 'Transactions',
+            url: '/transaction',
+        },
+    ];
 }
