@@ -5,10 +5,6 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const routes: Routes = [
     {
-        path: '',
-        component: HomeComponent,
-    },
-    {
         path: 'credit-card',
         loadChildren: () =>
             import('./credit-card/credit-card.module').then(
@@ -21,6 +17,11 @@ const routes: Routes = [
             import('./transaction/transaction.module').then(
                 (m) => m.TransactionModule
             ),
+    },
+    {
+        path: '',
+        redirectTo: 'credit-card',
+        pathMatch: 'full',
     },
     {
         path: '**',

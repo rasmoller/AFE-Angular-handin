@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Route } from '@Types/base/route';
+import { IRoute } from '@Types/base/route';
 
 @Component({
     selector: 'app-root',
@@ -9,10 +9,14 @@ import { Route } from '@Types/base/route';
 export class AppComponent {
     title = 'HandIn1';
 
-    routes: Route[] = [
+    routes: IRoute[] = [
         {
-            label: 'Credit cards',
-            url: '/credit-card',
+            label: 'Home',
+            url: '',
+        },
+        {
+            label: 'Add Credit card',
+            url: '/credit-card/add',
         },
         {
             label: 'Transactions',

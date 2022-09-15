@@ -23,7 +23,7 @@ const routes: Routes = [
         TransactionListItemComponent,
         TransactionAddComponent,
     ],
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
 export class TransactionModule {}

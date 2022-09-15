@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { CreditCard } from '@Types/credit-card/credit-card';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { CreditCardModule } from './credit-card.module';
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: CreditCardModule,
 })
 export class CreditCardService {
     constructor(private http: HttpClient) {}

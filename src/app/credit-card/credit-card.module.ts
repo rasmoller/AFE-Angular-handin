@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { CreditCardAddComponent } from './components/credit-card-add/credit-card-add.component';
 import { CreditCardListComponent } from './components/credit-card-list/credit-card-list.component';
 import { CreditCardListItemComponent } from './components/credit-card-list-item/credit-card-list-item.component';
 import { RouterModule, Routes } from '@angular/router';
+import { CreditCardDetailsComponent } from './components/credit-card-details/credit-card-details.component';
 
 const routes: Routes = [
     {
@@ -14,6 +14,10 @@ const routes: Routes = [
         path: 'add',
         component: CreditCardAddComponent,
     },
+    {
+        path: ':id',
+        component: CreditCardDetailsComponent,
+    },
 ];
 
 @NgModule({
@@ -21,8 +25,9 @@ const routes: Routes = [
         CreditCardAddComponent,
         CreditCardListComponent,
         CreditCardListItemComponent,
+        CreditCardDetailsComponent,
     ],
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
 export class CreditCardModule {}

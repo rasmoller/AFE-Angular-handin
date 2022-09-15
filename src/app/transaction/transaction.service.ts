@@ -2,9 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Transaction } from '@Types/transaction/transaction';
 import { Observable } from 'rxjs';
+import { TransactionModule } from './transaction.module';
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: TransactionModule,
 })
 export class TransactionService {
     constructor(private http: HttpClient) {}
