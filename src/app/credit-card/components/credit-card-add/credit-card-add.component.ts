@@ -6,6 +6,7 @@ import {
     FormBuilder,
     FormControl,
     ValidationErrors,
+    Validators,
 } from '@angular/forms';
 @Component({
     selector: 'app-credit-card-add',
@@ -14,12 +15,15 @@ import {
 })
 export class CreditCardAddComponent implements OnInit {
     creditCardForm = this.formBuilder.group({
-        card_number: [''],
-        cardholder_name: [''],
-        csc_code: [''],
+        card_number: ['', [this.cardValidation, Validators.required]],
+        cardholder_name: ['', Validators.required],
+        csc_code: ['', [this.cscCodeValidation, Validators.required]],
         expiration: this.formBuilder.group({
-            expiration_date_month: [''],
-            expiration_date_year: [''],
+            expiration_date_month: [
+                '',
+                [this.expirationMonthValidation, Validators.required],
+            ],
+            expiration_date_year: ['', Validators.required],
         }),
         issuer: [''],
     });
@@ -36,5 +40,48 @@ export class CreditCardAddComponent implements OnInit {
 
     onSubmit() {
         console.log(this.creditCardForm.value);
+    }
+
+    cardValidation(group: AbstractControl): ValidationErrors | null {
+        return new RegExp(/[0-9]{7,16}/).test(group.get('card_number')?.value)
+            ? null
+            : {
+                  card_number_errors:
+                      'Must be a number with a lentgth between 7-16.',
+              };
+    }
+
+    cscCodeValidation(group: AbstractControl): ValidationErrors | null {
+        return new RegExp(/[0-9]{3}/).test(group.get('csc_code')?.value)
+            ? null
+            : {
+                  card_number_errors: 'Must be a number with a length of 3.',
+              };
+    }
+
+    expirationMonthValidation(group: AbstractControl): ValidationErrors | null {
+        //Tjekker om man er i en valid måned i dette år
+        const currentDate = new Date();
+        if (
+            group.get('expiration_date_year')?.value &&
+            currentDate.getFullYear() ===
+                group.get('expiration_date_year')?.value
+        ) {
+            if (
+                group.get('expiration_date_month')?.value &&
+                currentDate.getMonth() >
+                    group.get('expiration_date_month')?.value
+            ) {
+                return {
+                    expiration_month_error:
+                        'Must be equal or after the current month.',
+                };
+            }
+        }
+        return null;
+    }
+
+    get cardNumber(): FormControl {
+        return this.creditCardForm.get('card_number') as FormControl;
     }
 }

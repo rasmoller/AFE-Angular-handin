@@ -3,15 +3,30 @@
 <form [formGroup]="creditCardForm" (ngSubmit)="onSubmit()">
     <div class="form-wrapper">
         <label>Card Number</label>
-        <input type="number" formControlName="card_number" />
+        <input type="text" formControlName="card_number" />
+        <div
+            *ngIf="
+                cardNumber.invalid && (cardNumber.dirty || cardNumber.touched)
+            "
+        >
+            <div
+                *ngIf="cardNumber.errors?.['card_number_errors']"
+                style="color: red"
+            >
+                {{ cardNumber.errors?.['card_number_errors'] }}
+            </div>
+        </div>
+        <!-- Missing error ift required-->
         <br />
 
         <label>Cardholder Name</label>
         <input type="text" formControlName="cardholder_name" />
+        <!-- Missing error -->
         <br />
 
         <label for="csc_code">CSC Code</label>
         <input type="number" formControlName="csc_code" />
+        <!-- Missing error -->
         <br />
 
         <div formGroupName="expiration">
@@ -21,12 +36,14 @@
                     {{ m }}
                 </option>
             </select>
+            <!-- Missing error -->
             <label for="expiration_date_year">Expiration Date Year</label>
             <select formControlName="expiration_date_year">
                 <option *ngFor="let y of year" [ngValue]="y">
                     {{ y }}
                 </option>
             </select>
+            <!-- Missing error -->
         </div>
 
         <br />
