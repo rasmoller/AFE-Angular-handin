@@ -7,7 +7,12 @@ import { HomeComponent } from './components/home/home.component';
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 @NgModule({
-    declarations: [AppComponent, HomeComponent, NavigationBarComponent, NotFoundComponent],
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        NavigationBarComponent,
+        NotFoundComponent,
+    ],
     imports: [BrowserModule, AppRoutingModule],
     providers: [],
     bootstrap: [AppComponent],

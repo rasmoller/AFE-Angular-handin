@@ -1,1 +1,37 @@
-<p>credit-card-add works!</p>
+<h1>Add YOUR credit card here (we WILL steal it!)</h1>
+
+<form [formGroup]="creditCardForm" (ngSubmit)="onSubmit()">
+    <div class="form-wrapper">
+        <label>Card Number</label>
+        <input type="number" formControlName="card_number" />
+        <br />
+
+        <label>Cardholder Name</label>
+        <input type="text" formControlName="cardholder_name" />
+        <br />
+
+        <label for="csc_code">CSC Code</label>
+        <input type="number" formControlName="csc_code" />
+        <br />
+
+        <div formGroupName="expiration">
+            <label for="expiration_date_month">Expiration Date Month</label>
+            <select formControlName="expiration_date_month">
+                <option *ngFor="let m of month" [ngValue]="m">
+                    {{ m }}
+                </option>
+            </select>
+            <label for="expiration_date_year">Expiration Date Year</label>
+            <select formControlName="expiration_date_year">
+                <option *ngFor="let y of year" [ngValue]="y">
+                    {{ y }}
+                </option>
+            </select>
+        </div>
+
+        <br />
+        <label for="issuer">Issuer</label>
+        <input type="text" formControlName="issuer" />
+    </div>
+    <button type="submit">Submit</button>
+</form>

@@ -1,1 +1,6 @@
-<p>credit-card-list works!</p>
+<div class="list">
+    <div class="card" *ngfor="let card of cards$ | async; index as i">
+        <div>{{ i }}</div>
+        <app-credit-card-list-item [card]="card"></app-credit-card-list-item>
+    </div>
+</div>

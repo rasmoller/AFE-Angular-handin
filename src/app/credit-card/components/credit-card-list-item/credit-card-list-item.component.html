@@ -1,1 +1,9 @@
-<p>credit-card-list-item works!</p>
+<div
+    class="card-detail"
+    [ngStyle]="{ 'flex-direction': horizontal ? 'row' : 'column' }"
+    *ngIf="card"
+>
+    <div *ngfor="let k of card | keyvalue">
+        {{ card }}
+    </div>
+</div>

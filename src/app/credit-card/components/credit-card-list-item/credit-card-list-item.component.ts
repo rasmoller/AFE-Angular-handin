@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, Input, OnInit } from '@angular/core';
+import { CreditCard } from '@Types/credit-card/credit-card';
 @Component({
-  selector: 'app-credit-card-list-item',
-  templateUrl: './credit-card-list-item.component.html',
-  styleUrls: ['./credit-card-list-item.component.scss']
+    selector: 'app-credit-card-list-item',
+    templateUrl: './credit-card-list-item.component.html',
+    styleUrls: ['./credit-card-list-item.component.scss'],
 })
 export class CreditCardListItemComponent implements OnInit {
+    @Input() card?: CreditCard;
+    @Input() horizontal: boolean = true; // which direction the card will be displayed in
+    constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+    ngOnInit(): void {}
 }
