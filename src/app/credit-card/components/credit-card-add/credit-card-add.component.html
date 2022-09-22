@@ -10,23 +10,38 @@
             "
         >
             <div
-                *ngIf="cardNumber.errors?.['card_number_errors']"
+                *ngFor="let error of cardNumberErrors | keyvalue"
                 style="color: red"
             >
-                {{ cardNumber.errors?.['card_number_errors'] }}
+                <div>{{ error.value }}</div>
             </div>
         </div>
-        <!-- Missing error ift required-->
         <br />
 
         <label>Cardholder Name</label>
         <input type="text" formControlName="cardholder_name" />
-        <!-- Missing error -->
+        <div
+            *ngIf="
+                cardholderName.invalid &&
+                (cardholderName.dirty || cardholderName.touched)
+            "
+        >
+            <div *ngIf="cardholderName.errors?.['required']" style="color: red">
+                <div>Field is required</div>
+            </div>
+        </div>
         <br />
 
         <label for="csc_code">CSC Code</label>
-        <input type="number" formControlName="csc_code" />
-        <!-- Missing error -->
+        <input maxlength="3" type="text" formControlName="csc_code" />
+        <div *ngIf="cscCode.invalid && (cscCode.dirty || cscCode.touched)">
+            <div
+                *ngFor="let error of cscCodeErrors | keyvalue"
+                style="color: red"
+            >
+                <div>{{ error.value }}</div>
+            </div>
+        </div>
         <br />
 
         <div formGroupName="expiration">
@@ -44,6 +59,18 @@
                 </option>
             </select>
             <!-- Missing error -->
+        </div>
+        <div
+            *ngIf="
+                expiration.invalid && (expiration.dirty || expiration.touched)
+            "
+        >
+            <div
+                *ngFor="let error of expirationErrors | keyvalue"
+                style="color: red"
+            >
+                <div>{{ error.value }}</div>
+            </div>
         </div>
 
         <br />

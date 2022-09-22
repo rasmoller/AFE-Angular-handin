@@ -4,9 +4,9 @@ import { CreditCardListComponent } from './components/credit-card-list/credit-ca
 import { CreditCardListItemComponent } from './components/credit-card-list-item/credit-card-list-item.component';
 import { RouterModule, Routes } from '@angular/router';
 import { CreditCardDetailsComponent } from './components/credit-card-details/credit-card-details.component';
-import { CreditCardService } from './credit-card.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RmUnderscorePipe } from './pipes/rm-underscore.pipe';
 
 const routes: Routes = [
     {
@@ -18,7 +18,7 @@ const routes: Routes = [
         component: CreditCardAddComponent,
     },
     {
-        path: ':id',
+        path: ':card_number',
         component: CreditCardDetailsComponent,
     },
 ];
@@ -29,9 +29,9 @@ const routes: Routes = [
         CreditCardListComponent,
         CreditCardListItemComponent,
         CreditCardDetailsComponent,
+        RmUnderscorePipe,
     ],
-    imports: [RouterModule.forChild(routes), ReactiveFormsModule, CommonModule],
-    providers: [CreditCardService],
-    exports: [RouterModule],
+    imports: [CommonModule, RouterModule.forChild(routes), ReactiveFormsModule],
+    exports: [RouterModule, RmUnderscorePipe],
 })
-export class CreditCardModule {}
+export class CreditCardModule { }

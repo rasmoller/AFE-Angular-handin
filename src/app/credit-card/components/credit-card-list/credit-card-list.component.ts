@@ -11,9 +11,11 @@ import { CreditCardService } from '../../credit-card.service';
 export class CreditCardListComponent implements OnInit {
     cards$: Observable<CreditCard[]>;
 
+    cardKeys: string[] = ['Card number', 'Card holder', 'Issuer'];
+
     constructor(private creditCardService: CreditCardService) {
         this.cards$ = creditCardService.getCreditCards();
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void { }
 }

@@ -1,9 +1,15 @@
-<div
-    class="card-detail"
-    [ngStyle]="{ 'flex-direction': horizontal ? 'row' : 'column' }"
-    *ngIf="card"
->
-    <div *ngfor="let k of card | keyvalue">
-        {{ card }}
-    </div>
-</div>
+<ng-container *ngTemplateOutlet="cardTemp"></ng-container>
+
+<ng-template #cardTemp>
+    <td>
+        <a [routerLink]="['/credit-card/', card.card_number]">{{
+            card.card_number
+        }}</a>
+    </td>
+    <td>
+        {{ card.cardholder_name }}
+    </td>
+    <td>
+        {{ card.issuer }}
+    </td>
+</ng-template>

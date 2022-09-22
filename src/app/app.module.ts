@@ -1,3 +1,5 @@
+import { CommonModule } from '@angular/common';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -13,7 +15,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
         NavigationBarComponent,
         NotFoundComponent,
     ],
-    imports: [BrowserModule, AppRoutingModule],
+    imports: [BrowserModule, AppRoutingModule, HttpClientModule],
     providers: [],
     bootstrap: [AppComponent],
 })

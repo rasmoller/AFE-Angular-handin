@@ -1,5 +1,5 @@
 export interface CreditCard {
-    card_number: number;
+    card_number: string;
     csc_code: number;
     cardholder_name: string;
     expiration_date_month: number;

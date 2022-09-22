@@ -15,16 +15,15 @@ import {
 })
 export class CreditCardAddComponent implements OnInit {
     creditCardForm = this.formBuilder.group({
-        card_number: ['', [this.cardValidation, Validators.required]],
+        card_number: ['', [this.cardValidation]],
         cardholder_name: ['', Validators.required],
-        csc_code: ['', [this.cscCodeValidation, Validators.required]],
+        csc_code: ['', [this.cscCodeValidation]],
         expiration: this.formBuilder.group({
             expiration_date_month: [
                 '',
-                [this.expirationMonthValidation, Validators.required],
             ],
-            expiration_date_year: ['', Validators.required],
-        }),
+            expiration_date_year: [''],
+        }, { validators: [this.expirationMonthValidation, Validators.required] }),
         issuer: [''],
     });
 
@@ -34,44 +33,64 @@ export class CreditCardAddComponent implements OnInit {
         (_, i) => i + new Date().getFullYear()
     );
 
-    constructor(private formBuilder: FormBuilder) {}
+    constructor(private formBuilder: FormBuilder) { }
 
-    ngOnInit(): void {}
+    ngOnInit(): void { }
 
     onSubmit() {
         console.log(this.creditCardForm.value);
     }
 
-    cardValidation(group: AbstractControl): ValidationErrors | null {
-        return new RegExp(/[0-9]{7,16}/).test(group.get('card_number')?.value)
+    cardValidation(group: FormControl): ValidationErrors | null {
+        const numbers = new RegExp(/^[0-9]*$/).test(group.value)
             ? null
             : {
-                  card_number_errors:
-                      'Must be a number with a lentgth between 7-16.',
-              };
+                numbers:
+                    'Must only be numbers',
+            };
+        const length = new RegExp(/^[\S]{7,16}$/).test(group.value) ? null
+            : {
+                length:
+                    'Must have a length between 7-16.',
+            };
+        const required = group.value && (group.value as string).length > 0 ? null :
+            {
+                required:
+                    'Field is required',
+            };
+        if (!numbers && !length && !required) {
+            return null;
+        }
+        return { ...numbers, ...length, ...required };
     }
 
-    cscCodeValidation(group: AbstractControl): ValidationErrors | null {
-        return new RegExp(/[0-9]{3}/).test(group.get('csc_code')?.value)
+    cscCodeValidation(group: FormControl): ValidationErrors | null {
+        const required = group.value && (group.value as string).length > 0
             ? null
             : {
-                  card_number_errors: 'Must be a number with a length of 3.',
-              };
+                required:
+                    'Field is required',
+            };
+        const length = new RegExp(/^[0-9]{3}$/).test(group.value)
+            ? null
+            : {
+                length: 'Must be a number with a length of 3.',
+            };
+        if (!length && !required) {
+            return null;
+        }
+        return { ...length, ...required };
     }
 
     expirationMonthValidation(group: AbstractControl): ValidationErrors | null {
         //Tjekker om man er i en valid måned i dette år
         const currentDate = new Date();
-        if (
-            group.get('expiration_date_year')?.value &&
-            currentDate.getFullYear() ===
-                group.get('expiration_date_year')?.value
-        ) {
-            if (
-                group.get('expiration_date_month')?.value &&
-                currentDate.getMonth() >
-                    group.get('expiration_date_month')?.value
-            ) {
+        const exp_year = group.get('expiration_date_year')?.value;
+        const exp_month = group.get('expiration_date_month')?.value;
+
+        if (exp_year && exp_month) {
+            if (currentDate.getFullYear() === exp_year
+                && currentDate.getMonth() > exp_month) {
                 return {
                     expiration_month_error:
                         'Must be equal or after the current month.',
@@ -83,5 +102,23 @@ export class CreditCardAddComponent implements OnInit {
 
     get cardNumber(): FormControl {
         return this.creditCardForm.get('card_number') as FormControl;
+    }
+    get cardNumberErrors(): ValidationErrors {
+        return this.creditCardForm.get('card_number')?.errors ?? {};
+    }
+    get expiration(): FormControl {
+        return this.creditCardForm.get('expiration') as FormControl;
+    }
+    get expirationErrors(): ValidationErrors {
+        return this.creditCardForm.get('expiration')?.errors ?? {};
+    }
+    get cardholderName(): FormControl {
+        return this.creditCardForm.get('cardholder_name') as FormControl;
+    }
+    get cscCode(): FormControl {
+        return this.creditCardForm.get('csc_code') as FormControl;
+    }
+    get cscCodeErrors(): ValidationErrors {
+        return this.creditCardForm.get('csc_code')?.errors ?? {};
     }
 }
