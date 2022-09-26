@@ -9,6 +9,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RmUnderscorePipe } from './pipes/rm-underscore.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
     declarations: [
         AppComponent,
@@ -16,7 +17,7 @@ import { RmUnderscorePipe } from './pipes/rm-underscore.pipe';
         NavigationBarComponent,
         NotFoundComponent,
     ],
-    imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+    imports: [BrowserModule, AppRoutingModule, HttpClientModule, BrowserAnimationsModule],
     providers: [],
     bootstrap: [AppComponent],
 })

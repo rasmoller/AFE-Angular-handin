@@ -1,6 +1,14 @@
-<div *ngFor="let trans of transactions">
-    <div *ngFor="let kv of trans | keyvalue">
-        <p>{{kv.key | titlecase | rmUnderscore }}</p>
-        <p>{{kv.value}}</p>
+<select>
+    <option *ngFor="let sort of sorts">
+        {{sort.name}}
+    </option>
+</select>
+
+<div *ngIf="transactions">
+    <div *ngFor="let trans of transactions.sort(selectedSort)">
+        <div *ngFor="let kv of trans | keyvalue">
+            <p>{{kv.key | titlecase | rmUnderscore }}</p>
+            <p>{{kv.value}}</p>
+        </div>
     </div>
 </div>

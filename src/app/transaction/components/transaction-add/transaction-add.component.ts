@@ -17,6 +17,7 @@ import { CreditCard } from '@Types/credit-card/credit-card';
 })
 export class TransactionAddComponent implements OnInit {
     cards$: Observable<CreditCard[]>;
+    todaysDate: Date;
 
     transactionForm = this.formBuilder.group({
         credit_card: ['', Validators.required], //vælg fra liste + req
@@ -31,6 +32,7 @@ export class TransactionAddComponent implements OnInit {
         private creditCardService: CreditCardService
     ) {
         this.cards$ = creditCardService.getCreditCards();
+        this.todaysDate = new Date();
     }
 
     ngOnInit(): void {}
@@ -68,5 +70,24 @@ export class TransactionAddComponent implements OnInit {
     }
     get amountErrors(): ValidationErrors {
         return this.transactionForm.get('amount')?.errors ?? {};
+    }
+
+    dateChangeHandler(date: Date) {
+        const stringDate: string = `${
+            date.getMonth() + 1
+        }/${date.getDate()}/${date.getFullYear()}`;
+        //this.transactionForm.get('date').setValue(stringDate);
+    }
+
+    dateValidator(group: FormControl): ValidationErrors | null {
+        return null;
+    }
+
+    get date(): FormControl {
+        return this.transactionForm.get('date') as FormControl;
+    }
+
+    get dateErrors(): ValidationErrors {
+        return this.transactionForm.get('date')?.errors ?? {};
     }
 }

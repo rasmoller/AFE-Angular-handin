@@ -4,7 +4,8 @@ import { TransactionListComponent } from './components/transaction-list/transact
 import { TransactionAddComponent } from './components/transaction-add/transaction-add.component';
 import { RouterModule, Routes } from '@angular/router';
 import { RmUnderscorePipe } from '../pipes/rm-underscore.pipe';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 const routes: Routes = [
     {
@@ -23,7 +24,9 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         TransactionListComponent,
         RmUnderscorePipe,
+        FormsModule,
         ReactiveFormsModule,
+        MatDatepickerModule,
     ],
     exports: [RouterModule],
 })
