@@ -1,8 +1,8 @@
 <h1>Add YOUR credit card here (we WILL steal it!)</h1>
 
-<form [formGroup]="creditCardForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="creditCardForm" (ngSubmit)="onSubmit(creditCardForm)">
     <div class="form-wrapper">
-        <label>Card Number</label>
+        <label>Card Number *</label>
         <input type="text" formControlName="card_number" />
         <div
             *ngIf="
@@ -18,7 +18,7 @@
         </div>
         <br />
 
-        <label>Cardholder Name</label>
+        <label>Cardholder Name *</label>
         <input type="text" formControlName="cardholder_name" />
         <div
             *ngIf="
@@ -32,7 +32,7 @@
         </div>
         <br />
 
-        <label for="csc_code">CSC Code</label>
+        <label for="csc_code">CSC Code *</label>
         <input maxlength="3" type="text" formControlName="csc_code" />
         <div *ngIf="cscCode.invalid && (cscCode.dirty || cscCode.touched)">
             <div
@@ -45,20 +45,19 @@
         <br />
 
         <div formGroupName="expiration">
-            <label for="expiration_date_month">Expiration Date Month</label>
+            <label for="expiration_date_month">Expiration Date Month *</label>
             <select formControlName="expiration_date_month">
                 <option *ngFor="let m of month" [ngValue]="m">
                     {{ m }}
                 </option>
             </select>
-            <!-- Missing error -->
-            <label for="expiration_date_year">Expiration Date Year</label>
+            <br />
+            <label for="expiration_date_year">Expiration Date Year *</label>
             <select formControlName="expiration_date_year">
                 <option *ngFor="let y of year" [ngValue]="y">
                     {{ y }}
                 </option>
             </select>
-            <!-- Missing error -->
         </div>
         <div
             *ngIf="
@@ -79,3 +78,5 @@
     </div>
     <button type="submit" [disabled]="creditCardForm.invalid">Submit</button>
 </form>
+
+<div style="margin-top: 20px">* fields that are required.</div>
