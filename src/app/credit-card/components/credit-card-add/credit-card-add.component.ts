@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CreditCard } from '@Types/credit-card/credit-card';
-import { Observable } from 'rxjs';
 import {
     AbstractControl,
     FormBuilder,
     FormControl,
+    FormGroup,
     ValidationErrors,
     Validators,
 } from '@angular/forms';
@@ -18,12 +17,18 @@ export class CreditCardAddComponent implements OnInit {
         card_number: ['', [this.cardValidation]],
         cardholder_name: ['', Validators.required],
         csc_code: ['', [this.cscCodeValidation]],
-        expiration: this.formBuilder.group({
-            expiration_date_month: [
-                '',
-            ],
-            expiration_date_year: [''],
-        }, { validators: [this.expirationMonthValidation, Validators.required] }),
+        expiration: this.formBuilder.group(
+            {
+                expiration_date_month: [''],
+                expiration_date_year: [''],
+            },
+            {
+                validators: [
+                    this.expirationMonthValidation,
+                    Validators.required,
+                ],
+            }
+        ),
         issuer: [''],
     });
 
@@ -33,31 +38,32 @@ export class CreditCardAddComponent implements OnInit {
         (_, i) => i + new Date().getFullYear()
     );
 
-    constructor(private formBuilder: FormBuilder) { }
+    constructor(private formBuilder: FormBuilder) {}
 
-    ngOnInit(): void { }
+    ngOnInit(): void {}
 
-    onSubmit() {
-        console.log(this.creditCardForm.value);
+    onSubmit(form: FormGroup) {
+        console.log(form.errors);
+        // console.log(form.value);
     }
 
     cardValidation(group: FormControl): ValidationErrors | null {
         const numbers = new RegExp(/^[0-9]*$/).test(group.value)
             ? null
             : {
-                numbers:
-                    'Must only be numbers',
-            };
-        const length = new RegExp(/^[\S]{7,16}$/).test(group.value) ? null
+                  numbers: 'Must only be numbers',
+              };
+        const length = new RegExp(/^[\S]{7,16}$/).test(group.value)
+            ? null
             : {
-                length:
-                    'Must have a length between 7-16.',
-            };
-        const required = group.value && (group.value as string).length > 0 ? null :
-            {
-                required:
-                    'Field is required',
-            };
+                  length: 'Must have a length between 7-16.',
+              };
+        const required =
+            group.value && (group.value as string).length > 0
+                ? null
+                : {
+                      required: 'Field is required',
+                  };
         if (!numbers && !length && !required) {
             return null;
         }
@@ -65,17 +71,17 @@ export class CreditCardAddComponent implements OnInit {
     }
 
     cscCodeValidation(group: FormControl): ValidationErrors | null {
-        const required = group.value && (group.value as string).length > 0
-            ? null
-            : {
-                required:
-                    'Field is required',
-            };
+        const required =
+            group.value && (group.value as string).length > 0
+                ? null
+                : {
+                      required: 'Field is required',
+                  };
         const length = new RegExp(/^[0-9]{3}$/).test(group.value)
             ? null
             : {
-                length: 'Must be a number with a length of 3.',
-            };
+                  length: 'Must be a number with a length of 3.',
+              };
         if (!length && !required) {
             return null;
         }
@@ -89,8 +95,10 @@ export class CreditCardAddComponent implements OnInit {
         const exp_month = group.get('expiration_date_month')?.value;
 
         if (exp_year && exp_month) {
-            if (currentDate.getFullYear() === exp_year
-                && currentDate.getMonth() > exp_month) {
+            if (
+                currentDate.getFullYear() === exp_year &&
+                currentDate.getMonth() > exp_month
+            ) {
                 return {
                     expiration_month_error:
                         'Must be equal or after the current month.',
