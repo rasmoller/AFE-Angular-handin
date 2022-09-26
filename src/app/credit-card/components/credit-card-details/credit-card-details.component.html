@@ -1,6 +1,42 @@
 <div *ngIf="card$ | async as card">
-    <div style="display: flex" *ngFor="let k of card | keyvalue">
-        <p>{{ k.key | titlecase | rmUnderscore }}:</p>
-        <p>{{ k.value }}</p>
+    <div>
+        <p>
+            Card number
+        </p>
+        <p>
+            {{card.card_number}}
+        </p>
+    </div>
+    <div>
+        <p>
+            Cardholder name
+        </p>
+        <p>
+            {{card.cardholder_name}}
+        </p>
+    </div>
+    <div>
+        <p>
+            CSC code
+        </p>
+        <p>
+            {{card.csc_code}}
+        </p>
+    </div>
+    <div>
+        <p>
+            Expiration date
+        </p>
+        <p>
+            {{card | expirationDate}}
+        </p>
+    </div>
+    <div>
+        <p>
+            Issuer
+        </p>
+        <p>
+            {{card.issuer}}
+        </p>
     </div>
 </div>
