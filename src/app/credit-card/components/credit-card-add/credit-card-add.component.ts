@@ -7,7 +7,9 @@ import {
     ValidationErrors,
     Validators,
 } from '@angular/forms';
-
+import { Router } from '@angular/router';
+import { CreditCard } from '@Types/credit-card/credit-card';
+import { CreditCardService } from '../../credit-card.service';
 @Component({
     selector: 'app-credit-card-add',
     templateUrl: './credit-card-add.component.html',
@@ -39,13 +41,19 @@ export class CreditCardAddComponent implements OnInit {
         (_, i) => i + new Date().getFullYear()
     );
 
-    constructor(private formBuilder: FormBuilder) {}
+    constructor(
+        private formBuilder: FormBuilder,
+        private router: Router,
+        private creditCardService: CreditCardService
+    ) {}
 
     ngOnInit(): void {}
 
     onSubmit(form: FormGroup) {
-        console.log(form.errors);
+        // console.log(form.errors);
         // console.log(form.value);
+        this.creditCardService.addCreditCard(form.value);
+        this.router.navigate(['/']); //Routes to credit card list
     }
 
     cardValidation(group: FormControl): ValidationErrors | null {
