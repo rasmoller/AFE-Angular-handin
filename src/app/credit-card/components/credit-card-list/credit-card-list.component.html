@@ -3,8 +3,8 @@
         <thead>
             <th *ngFor="let key of cardKeys">{{ key }}</th>
         </thead>
-        <tr *ngFor="let card of cards$ | async">
-            <app-credit-card-list-item
+        <tr *ngFor="let card of cards$ | async" [routerLink]="['/credit-card/', card.card_number]">
+            <app-credit-card-list-item 
                 class="card"
                 [card]="card"
             ></app-credit-card-list-item>

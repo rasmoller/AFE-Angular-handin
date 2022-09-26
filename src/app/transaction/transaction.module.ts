@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { TransactionOverviewComponent } from './components/transaction-overview/transaction-overview.component';
 import { TransactionListComponent } from './components/transaction-list/transaction-list.component';
-import { TransactionListItemComponent } from './components/transaction-list-item/transaction-list-item.component';
 import { TransactionAddComponent } from './components/transaction-add/transaction-add.component';
 import { RouterModule, Routes } from '@angular/router';
+import { RmUnderscorePipe } from '../pipes/rm-underscore.pipe';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
     {
@@ -17,13 +18,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [
-        TransactionOverviewComponent,
+    declarations: [TransactionOverviewComponent, TransactionAddComponent],
+    imports: [
+        RouterModule.forChild(routes),
         TransactionListComponent,
-        TransactionListItemComponent,
-        TransactionAddComponent,
+        RmUnderscorePipe,
+        ReactiveFormsModule,
     ],
-    imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
 export class TransactionModule {}

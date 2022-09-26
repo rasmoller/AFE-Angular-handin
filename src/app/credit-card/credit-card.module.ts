@@ -6,7 +6,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { CreditCardDetailsComponent } from './components/credit-card-details/credit-card-details.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RmUnderscorePipe } from './pipes/rm-underscore.pipe';
+import { ExpirationDatePipe } from './pipes/expiration-date.pipe';
+import { RmUnderscorePipe } from '../pipes/rm-underscore.pipe';
 
 const routes: Routes = [
     {
@@ -29,9 +30,14 @@ const routes: Routes = [
         CreditCardListComponent,
         CreditCardListItemComponent,
         CreditCardDetailsComponent,
+        ExpirationDatePipe,
+    ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        ReactiveFormsModule,
         RmUnderscorePipe,
     ],
-    imports: [CommonModule, RouterModule.forChild(routes), ReactiveFormsModule],
-    exports: [RouterModule, RmUnderscorePipe],
+    exports: [RouterModule],
 })
-export class CreditCardModule { }
+export class CreditCardModule {}

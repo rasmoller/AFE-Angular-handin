@@ -1,1 +1,6 @@
-<p>transaction-list works!</p>
+<div *ngFor="let trans of transactions">
+    <div *ngFor="let kv of trans | keyvalue">
+        <p>{{kv.key | titlecase | rmUnderscore }}</p>
+        <p>{{kv.value}}</p>
+    </div>
+</div>

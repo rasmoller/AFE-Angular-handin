@@ -1,16 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'rmUnderscore'
+    name: 'rmUnderscore',
+    standalone: true,
 })
 export class RmUnderscorePipe implements PipeTransform {
-
     transform(value: string, ...extraChars: string[]): string {
         let result = value;
         extraChars.forEach((c) => {
             result = result.replaceAll(c, ' ');
-        })
+        });
         return result.replaceAll('_', ' ');
     }
-
 }

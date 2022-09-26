@@ -2,9 +2,7 @@
 
 <ng-template #cardTemp>
     <td>
-        <a [routerLink]="['/credit-card/', card.card_number]">{{
-            card.card_number
-        }}</a>
+        {{ card.card_number}}
     </td>
     <td>
         {{ card.cardholder_name }}

@@ -77,5 +77,5 @@
         <label for="issuer">Issuer</label>
         <input type="text" formControlName="issuer" />
     </div>
-    <button type="submit">Submit</button>
+    <button type="submit" [disabled]="creditCardForm.invalid">Submit</button>
 </form>
