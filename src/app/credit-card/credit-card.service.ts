@@ -32,7 +32,7 @@ export class CreditCardService {
                     card_number: '2',
                     cardholder_name: '22',
                     csc_code: 234,
-                    expiration_date_month: 2,
+                    expiration_date_month: 12,
                     expiration_date_year: 22,
                     issuer: 'SXDD',
                 };
