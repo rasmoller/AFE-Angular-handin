@@ -1,17 +1,12 @@
 import { CommonModule } from '@angular/common';
-import {
-    Component,
-    Input,
-    OnChanges,
-    OnInit,
-    SimpleChanges,
-} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CreditCard } from '@Types/credit-card/credit-card';
 import { Transaction } from '@Types/transaction/transaction';
-import { AppModule } from 'src/app/app.module';
 import { RmUnderscorePipe } from 'src/app/pipes/rm-underscore.pipe';
 @Component({
     standalone: true,
-    imports: [CommonModule, RmUnderscorePipe],
+    imports: [CommonModule, RmUnderscorePipe, FormsModule],
     selector: 'app-transaction-list',
     templateUrl: './transaction-list.component.html',
     styleUrls: ['./transaction-list.component.scss'],
@@ -19,7 +14,8 @@ import { RmUnderscorePipe } from 'src/app/pipes/rm-underscore.pipe';
 export class TransactionListComponent implements OnChanges {
     @Input() transactions?: Transaction[];
 
-    //TODO ADD Correct sorting methods
+    search: string = '';
+
     sorts = [
         {
             name: 'Highest first',
@@ -46,10 +42,33 @@ export class TransactionListComponent implements OnChanges {
     constructor() {}
 
     ngOnChanges(sChanges: SimpleChanges): void {
-        if (sChanges['transactions']) {
-            this.transactions = sChanges['transactions'].currentValue.sort(
-                this.selectedSort
+        if (sChanges['transactions'] || sChanges['search']) {
+            this.transactions = sChanges['transactions'].currentValue.filter(
+                (t: Transaction) => {
+                    if (this.search) {
+                        return new RegExp(this.search, 'i').test(
+                            t.credit_card.card_number
+                        );
+                    } else {
+                        return true;
+                    }
+                }
             );
+            if (sChanges['transactions']) {
+                this.transactions = sChanges['transactions'].currentValue.sort(
+                    this.selectedSort
+                );
+            }
+        }
+    }
+
+    debounceTimeout?: NodeJS.Timeout;
+    searchChange(search: string) {
+        if (this.debounceTimeout) {
+            clearTimeout(this.debounceTimeout);
+            this.debounceTimeout = setTimeout(() => {
+                this.search = search;
+            }, 500);
         }
     }
 }

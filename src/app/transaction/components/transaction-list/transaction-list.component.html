@@ -1,14 +1,11 @@
-<select>
-    <option *ngFor="let sort of sorts">
-        {{sort.name}}
-    </option>
-</select>
+<input type="text" [ngModel]="search" (ngModelChange)="searchChange($event)"/>
 
 <div *ngIf="transactions">
     <div *ngFor="let trans of transactions.sort(selectedSort)">
         <div *ngFor="let kv of trans | keyvalue">
             <p>{{kv.key | titlecase | rmUnderscore }}</p>
-            <p>{{kv.value}}</p>
+            <p *ngIf="kv.key !== 'credit_card' && kv.value; else creditCard">{{kv.value}}</p>
+            <ng-template #creditCard>{{$any(kv.value).card_number}}</ng-template>
         </div>
     </div>
 </div>
