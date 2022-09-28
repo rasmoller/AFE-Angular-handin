@@ -36,8 +36,13 @@ export class TransactionListComponent implements OnChanges {
             },
         },
     ];
-    selectedSort: (arg0: Transaction, arg1: Transaction) => number =
-        this.sorts[2].sorter;
+    selectedSort: (arg0: Transaction, arg1: Transaction) => number = (
+        t1,
+        t2
+    ) => {
+        return new Date(t2.date).getTime() - new Date(t1.date).getTime();
+    };
+    //this.sorts[2].sorter;
 
     constructor() {}
 

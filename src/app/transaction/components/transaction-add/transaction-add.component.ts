@@ -2,13 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import {
     FormBuilder,
     FormControl,
+    FormGroup,
     ValidationErrors,
     Validators,
 } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { CreditCardService } from 'src/app/credit-card/credit-card.service';
 import { CreditCard } from '@Types/credit-card/credit-card';
-import { CURRENCIES } from '@Types/transaction/transaction';
+import { CURRENCIES, Transaction } from '@Types/transaction/transaction';
+import { TransactionService } from '../../transaction.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-transaction-add',
@@ -30,7 +33,9 @@ export class TransactionAddComponent implements OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
-        private creditCardService: CreditCardService
+        private router: Router,
+        private creditCardService: CreditCardService,
+        private transactionService: TransactionService
     ) {
         this.cards$ = creditCardService.getCreditCards();
         this.cards$.subscribe((t) => console.log(t));
@@ -40,8 +45,21 @@ export class TransactionAddComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    onSubmit() {
-        console.log(this.transactionForm.value);
+    onSubmit(form: FormGroup) {
+        // console.log(this.transactionForm.value);
+        const formValueWithCorrectDate: Transaction = {
+            ...form.value,
+            date: new Date(form.value.date).getTime(),
+        };
+        console.log(formValueWithCorrectDate);
+
+        this.transactionService
+            .createTransaction(formValueWithCorrectDate)
+            .subscribe((res) => {
+                if (res) {
+                    this.router.navigate(['/']);
+                }
+            });
     }
 
     amountValidation(group: FormControl): ValidationErrors | null {

@@ -2,7 +2,7 @@
 
 <form [formGroup]="creditCardForm" (ngSubmit)="onSubmit(creditCardForm)">
     <div class="form-wrapper">
-        <label>Card Number *</label>
+        <label for="card_number">Card Number *</label>
         <input type="text" formControlName="card_number" />
         <div
             *ngIf="

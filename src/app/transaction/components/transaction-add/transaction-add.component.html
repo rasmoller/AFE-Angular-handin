@@ -1,11 +1,11 @@
 <h1>Add transaction</h1>
 
-<form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="transactionForm" (ngSubmit)="onSubmit(transactionForm)">
     <div class="form-wrapper">
         <label for="credit_card">Credit Card: </label>
         <select formControlName="credit_card">
             <option *ngFor="let c of cards$ | async" [ngValue]="c">
-                {{ c }}
+                {{ c.card_number }}
             </option>
         </select>
         <br />
@@ -31,7 +31,12 @@
 
         <br />
         <label>Date: </label>
-        <input matInput [matDatepicker]="picker" />
+        <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="date"
+            [min]="todaysDate"
+        />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle
         ><br />
         <mat-hint>MM/DD/YYYY</mat-hint>
