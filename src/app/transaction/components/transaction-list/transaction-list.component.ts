@@ -16,49 +16,35 @@ export class TransactionListComponent implements OnChanges {
 
     search: string = '';
 
-    sorts = [
+    filters = [
         {
-            name: 'Highest first',
-            sorter: (t: Transaction, t2: Transaction): number => {
-                return 1;
+            name: 'Last 10 days',
+            filter: (t: Transaction): boolean => {
+                return 864000000 > new Date().getTime() - t.date.getTime();
             },
         },
         {
-            name: 'Lowest first',
-            sorter: (t: Transaction, t2: Transaction): number => {
-                return 0;
-            },
-        },
-        {
-            name: 'Date added',
-            sorter: (t: Transaction, t2: Transaction): number => {
-                return -1;
+            name: 'Amount over 100',
+            filter: (t: Transaction): boolean => {
+                return t.amount > 100;
             },
         },
     ];
-    selectedSort: (arg0: Transaction, arg1: Transaction) => number =
-        this.sorts[2].sorter;
+    selectedFilter: (arg0: Transaction) => boolean = this.filters[1].filter;
 
     constructor() {}
 
     ngOnChanges(sChanges: SimpleChanges): void {
         if (sChanges['transactions'] || sChanges['search']) {
-            this.transactions = sChanges['transactions'].currentValue.filter(
-                (t: Transaction) => {
-                    if (this.search) {
-                        return new RegExp(this.search, 'i').test(
-                            t.credit_card.card_number
-                        );
-                    } else {
-                        return true;
-                    }
-                }
-            );
-            if (sChanges['transactions']) {
-                this.transactions = sChanges['transactions'].currentValue.sort(
-                    this.selectedSort
+            this.transactions = sChanges['transactions'].currentValue
+                .filter(this.selectedFilter)
+                .filter((t: Transaction) =>
+                    this.search
+                        ? new RegExp(this.search, 'i').test(
+                              t.credit_card.card_number
+                          )
+                        : true
                 );
-            }
         }
     }
 
