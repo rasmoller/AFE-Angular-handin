@@ -2,16 +2,16 @@
 
 <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
     <div class="form-wrapper">
-        <label for="creditcard">Credit Card</label>
-        <select formControlName="creditcard">
-           <option *ngFor="let c of creditcard" [ngValue]="c">
+        <label for="credit_card">Credit Card: </label>
+        <select formControlName="credit_card">
+            <option *ngFor="let c of cards$ | async" [ngValue]="c">
                 {{ c }}
             </option>
         </select>
-<br />
+        <br />
 
-        <label for="amount">Amount</label>
-        <input type="text" formControlName="amount"/>
+        <label for="amount">Amount: </label>
+        <input type="text" formControlName="amount" />
         <div *ngIf="amount.invalid && (amount.dirty || amount.touched)">
             <div
                 *ngFor="let error of amountErrors | keyvalue"
@@ -22,22 +22,20 @@
         </div>
         <br />
 
-        <label for="currency">Currency</label>
-        <select formControlName="currency">
-            <option *ngFor="let c of currency" [ngValue]="c">
-                 {{ c }}
-             </option>
-         </select>
+        <label for="currencies">Currency: </label>
+        <select formControlName="currencies">
+            <option *ngFor="let c of currencies" [ngValue]="c">
+                {{ c }}
+            </option>
+        </select>
 
-        <br/>
-        <label>Date</label>
-        <input matInput [matDatepicker]="picker">
-        <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <br />
+        <label>Date: </label>
+        <input matInput [matDatepicker]="picker" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle
+        ><br />
+        <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker #picker></mat-datepicker>
-
-
-
     </div>
-<button type="submit" [disabled]="transactionForm.invalid">Submit</button>
+    <button type="submit" [disabled]="transactionForm.invalid">Submit</button>
 </form>
