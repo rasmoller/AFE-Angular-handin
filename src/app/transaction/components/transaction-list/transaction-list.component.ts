@@ -31,12 +31,20 @@ export class TransactionListComponent implements OnChanges {
         },
     ];
     selectedFilter: (arg0: Transaction) => boolean = this.filters[1].filter;
+    selectedSort: (arg0: Transaction, arg1: Transaction) => number = (
+        t1,
+        t2
+    ) => {
+        return new Date(t2.date).getTime() - new Date(t1.date).getTime();
+    };
+    //this.sorts[2].sorter;
 
     constructor() {}
 
     ngOnChanges(sChanges: SimpleChanges): void {
         if (sChanges['transactions'] || sChanges['search']) {
             this.transactions = sChanges['transactions'].currentValue
+                .sort(this.selectedSort)
                 .filter(this.selectedFilter)
                 .filter((t: Transaction) =>
                     this.search

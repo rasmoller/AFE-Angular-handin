@@ -8,20 +8,21 @@ import { TransactionModule } from './transaction.module';
     providedIn: 'root',
 })
 export class TransactionService {
+    url: string = 'http://localhost:3000';
     constructor(private http: HttpClient) {}
 
     getTransactions(): Observable<Transaction[]> {
-        return this.http.get<Transaction[]>('localhost:3000/transaction');
+        return this.http.get<Transaction[]>(this.url + '/transactions');
     }
 
     createTransaction(newTrans: Transaction): Observable<Transaction> {
         return this.http.post<Transaction>(
-            'localhost:3000/transactions',
+            this.url + '/transactions',
             newTrans
         );
     }
 
     removeTransaction(uid: Transaction['transaction_uid']) {
-        return this.http.delete('localhost:3000/transactions/' + uid);
+        return this.http.delete(this.url + '/transactions/' + uid);
     }
 }
