@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {
-    AbstractControl,
     FormBuilder,
     FormControl,
     ValidationErrors,
@@ -9,6 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { CreditCardService } from 'src/app/credit-card/credit-card.service';
 import { CreditCard } from '@Types/credit-card/credit-card';
+import { CURRENCIES } from '@Types/transaction/transaction';
 
 @Component({
     selector: 'app-transaction-add',
@@ -18,11 +18,12 @@ import { CreditCard } from '@Types/credit-card/credit-card';
 export class TransactionAddComponent implements OnInit {
     cards$: Observable<CreditCard[]>;
     todaysDate: Date;
+    currencies: String[] = CURRENCIES;
 
     transactionForm = this.formBuilder.group({
         credit_card: ['', Validators.required], //vælg fra liste + req
         amount: ['', [this.amountValidation]], //must be number + req + positive
-        currency: ['', Validators.required], //req
+        currencies: ['', Validators.required], //req
         comment: [''], //not req
         date: ['', Validators.required], //req
     });
@@ -32,6 +33,8 @@ export class TransactionAddComponent implements OnInit {
         private creditCardService: CreditCardService
     ) {
         this.cards$ = creditCardService.getCreditCards();
+        this.cards$.subscribe((t) => console.log(t));
+        console.log(this.cards$);
         this.todaysDate = new Date();
     }
 

@@ -6,6 +6,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { RmUnderscorePipe } from '../pipes/rm-underscore.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
     {
@@ -21,12 +24,15 @@ const routes: Routes = [
 @NgModule({
     declarations: [TransactionOverviewComponent, TransactionAddComponent],
     imports: [
+        CommonModule,
         RouterModule.forChild(routes),
         TransactionListComponent,
         RmUnderscorePipe,
         FormsModule,
         ReactiveFormsModule,
         MatDatepickerModule,
+        MatNativeDateModule,
+        MatFormFieldModule,
     ],
     exports: [RouterModule],
 })

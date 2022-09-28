@@ -1,6 +1,8 @@
 import { CreditCard } from '@Types/credit-card/credit-card';
 
-type Currency = 'DKK' | 'EUR' | 'SEK' | 'NOK' | 'GBP';
+export const CURRENCIES = ['CAD', 'EUR', 'KYD', 'MWK', 'NAD', 'USD'];
+
+type Currency = 'CAD' | 'EUR' | 'KYD' | 'MWK' | 'NAD' | 'USD';
 
 export interface Transaction {
     transaction_uid: string;
