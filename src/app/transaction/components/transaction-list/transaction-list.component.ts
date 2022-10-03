@@ -20,12 +20,9 @@ export class TransactionListComponent implements OnChanges {
 
     filters = [
         {
-            name: 'Last 10 days',
+            name: 'Upcoming',
             filter: (t: Transaction): boolean => {
-                return (
-                    864000000 >
-                    new Date().getTime() - new Date(t.date).getTime()
-                );
+                return new Date().getTime() < new Date(t.date).getTime();
             },
         },
         {
