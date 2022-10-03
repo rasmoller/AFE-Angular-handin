@@ -9,6 +9,6 @@ export interface Transaction {
     credit_card: CreditCard;
     amount: number;
     currency: Currency;
-    comment: string;
+    comment?: string;
     date: Date;
 }

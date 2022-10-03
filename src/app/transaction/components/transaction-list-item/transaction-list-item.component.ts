@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Transaction } from '@Types/transaction/transaction';
 import { TransactionService } from '../../transaction.service';
@@ -13,6 +13,7 @@ import { TransactionService } from '../../transaction.service';
 })
 export class TransactionListItemComponent implements OnInit {
     @Input() transaction?: Transaction;
+    @Output() onDelete: EventEmitter<string> = new EventEmitter<string>();
 
     constructor(
         private transactionService: TransactionService,
@@ -21,14 +22,9 @@ export class TransactionListItemComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    onDelete(): void {
-        if (this.transaction) {
-            this.transactionService
-                .removeTransaction(this.transaction?.transaction_uid)
-                .subscribe(() => {
-                    console.log('Transaction removed');
-                    this.router.navigate(['/transaction']);
-                });
+    deleteClick() {
+        if (this.transaction?.transaction_uid) {
+            this.onDelete.emit(this.transaction.transaction_uid);
         }
     }
 }
