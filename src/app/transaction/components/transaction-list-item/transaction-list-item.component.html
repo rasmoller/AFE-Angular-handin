@@ -2,7 +2,7 @@
 
 <ng-template #transOutlet>
     <td>
-        {{ transaction?.credit_card?.card_number}}
+        {{ transaction?.credit_card?.card_number }}
     </td>
     <td>
         {{ transaction?.amount }}
@@ -12,6 +12,9 @@
     </td>
     <td>
         {{ transaction?.date | date }}
+    </td>
+    <td>
+        {{ transaction?.comment }}
     </td>
     <td>
         <button (click)="onDelete()">Delete</button>
