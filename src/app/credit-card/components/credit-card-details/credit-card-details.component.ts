@@ -30,8 +30,10 @@ export class CreditCardDetailsComponent implements OnInit {
                 .getTransactions()
                 .pipe(
                     map((tArr) =>
-                        tArr.filter(
-                            (t) => t.credit_card.card_number === cardNumber
+                        tArr.filter((t) =>
+                            new RegExp(`${cardNumber}`).test(
+                                t.credit_card.card_number
+                            )
                         )
                     )
                 );
