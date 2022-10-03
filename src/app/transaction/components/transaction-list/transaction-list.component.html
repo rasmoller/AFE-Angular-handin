@@ -22,6 +22,7 @@
         <tr *ngFor="let trans of shownTransactions">
             <app-transaction-list-item
                 [transaction]="trans"
+                (onDelete)="onDelete($event)"
             ></app-transaction-list-item>
         </tr>
     </table>
