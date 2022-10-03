@@ -22,7 +22,10 @@ export class TransactionListComponent implements OnChanges {
         {
             name: 'Last 10 days',
             filter: (t: Transaction): boolean => {
-                return 864000000 > new Date().getTime() - t.date.getTime();
+                return (
+                    864000000 >
+                    new Date().getTime() - new Date(t.date).getTime()
+                );
             },
         },
         {
@@ -32,7 +35,10 @@ export class TransactionListComponent implements OnChanges {
             },
         },
     ];
-    selectedFilter: (arg0: Transaction) => boolean = this.filters[1].filter;
+    selectedFilter: {
+        filter: (arg0: Transaction) => boolean;
+        name: string;
+    } = this.filters[1];
     selectedSort: (arg0: Transaction, arg1: Transaction) => number = (
         t1,
         t2
@@ -46,7 +52,7 @@ export class TransactionListComponent implements OnChanges {
     updateTransactions() {
         this.shownTransactions = this.transactions
             .sort(this.selectedSort)
-            .filter(this.selectedFilter)
+            .filter(this.selectedFilter.filter)
             .filter((t: Transaction) =>
                 this.search
                     ? new RegExp(this.search, 'i').test(
@@ -60,7 +66,7 @@ export class TransactionListComponent implements OnChanges {
         filter: (arg0: Transaction) => boolean;
         name: string;
     }) {
-        this.selectedFilter = filter.filter;
+        this.selectedFilter = filter;
         this.updateTransactions();
     }
 
