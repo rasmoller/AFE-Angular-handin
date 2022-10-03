@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Transaction } from '@Types/transaction/transaction';
+import { TransactionService } from '../../transaction.service';
 import { TransactionListItemComponent } from '../transaction-list-item/transaction-list-item.component';
 
 @Component({
@@ -44,7 +45,7 @@ export class TransactionListComponent implements OnChanges {
     };
     //this.sorts[2].sorter;
 
-    constructor() {}
+    constructor(private transactionsService: TransactionService) {}
 
     updateTransactions() {
         this.shownTransactions = this.transactions
@@ -71,6 +72,17 @@ export class TransactionListComponent implements OnChanges {
         if (sChanges['transactions']) {
             this.updateTransactions();
         }
+    }
+
+    onDelete(transaction_uid: string) {
+        this.transactionsService
+            .removeTransaction(transaction_uid)
+            .subscribe(() => {
+                this.transactions = this.transactions.filter(
+                    (t) => t.transaction_uid !== transaction_uid
+                );
+                this.updateTransactions();
+            });
     }
 
     debounceTimeout?: NodeJS.Timeout;
