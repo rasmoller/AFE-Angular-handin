@@ -32,7 +32,7 @@ export class TransactionListComponent implements OnChanges {
             },
         },
     ];
-    selectedFilter: {
+    selectedFilter?: {
         filter: (arg0: Transaction) => boolean;
         name: string;
     } = this.filters[1];
@@ -49,7 +49,7 @@ export class TransactionListComponent implements OnChanges {
     updateTransactions() {
         this.shownTransactions = this.transactions
             .sort(this.selectedSort)
-            .filter(this.selectedFilter.filter)
+            .filter(this.selectedFilter?.filter ?? (() => true))
             .filter((t: Transaction) =>
                 this.search
                     ? new RegExp(this.search, 'i').test(
