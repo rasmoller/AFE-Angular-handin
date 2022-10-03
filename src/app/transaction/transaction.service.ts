@@ -22,7 +22,7 @@ export class TransactionService {
         );
     }
 
-    removeTransaction(uid: Transaction['transaction_uid']) {
+    removeTransaction(uid: Transaction['uid']) {
         return this.http.delete(this.url + '/transactions/' + uid);
     }
 }

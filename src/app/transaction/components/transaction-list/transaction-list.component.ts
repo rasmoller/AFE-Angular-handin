@@ -36,7 +36,7 @@ export class TransactionListComponent implements OnChanges {
     selectedFilter?: {
         filter: (arg0: Transaction) => boolean;
         name: string;
-    } = this.filters[1];
+    };
     selectedSort: (arg0: Transaction, arg1: Transaction) => number = (
         t1,
         t2
@@ -74,15 +74,15 @@ export class TransactionListComponent implements OnChanges {
         }
     }
 
-    onDelete(transaction_uid: string) {
-        this.transactionsService
-            .removeTransaction(transaction_uid)
-            .subscribe(() => {
-                this.transactions = this.transactions.filter(
-                    (t) => t.transaction_uid !== transaction_uid
-                );
-                this.updateTransactions();
-            });
+    onDelete(uid: string) {
+        console.log(uid);
+
+        this.transactionsService.removeTransaction(uid).subscribe((res) => {
+            console.log(res);
+
+            this.transactions = this.transactions.filter((t) => t.uid !== uid);
+            this.updateTransactions();
+        });
     }
 
     debounceTimeout?: NodeJS.Timeout;

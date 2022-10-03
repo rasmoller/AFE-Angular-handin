@@ -23,8 +23,8 @@ export class TransactionListItemComponent implements OnInit {
     ngOnInit(): void {}
 
     deleteClick() {
-        if (this.transaction?.transaction_uid) {
-            this.onDelete.emit(this.transaction.transaction_uid);
+        if (this.transaction?.uid) {
+            this.onDelete.emit(this.transaction.uid);
         }
     }
 }

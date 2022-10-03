@@ -45,7 +45,7 @@ export class CreditCardDetailsComponent implements OnInit {
     onDelete(cardNumber: string) {
         this.creditcardService.removeCreditCard(cardNumber).subscribe(() => {
             console.log('Credit card removed');
-            this.router.navigate(['/transaction']);
+            this.router.navigate(['/']);
         });
     }
 }
