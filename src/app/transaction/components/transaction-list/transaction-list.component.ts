@@ -1,19 +1,15 @@
-import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { CreditCard } from '@Types/credit-card/credit-card';
 import { Transaction } from '@Types/transaction/transaction';
-import { RmUnderscorePipe } from 'src/app/pipes/rm-underscore.pipe';
+
 @Component({
-    standalone: true,
-    imports: [CommonModule, RmUnderscorePipe, FormsModule],
     selector: 'app-transaction-list',
     templateUrl: './transaction-list.component.html',
     styleUrls: ['./transaction-list.component.scss'],
 })
 export class TransactionListComponent implements OnChanges {
-    @Input() transactions?: Transaction[];
+    @Input() transactions: Transaction[] = [];
 
+    shownTransactions: Transaction[] = [];
     search: string = '';
 
     filters = [
@@ -41,18 +37,22 @@ export class TransactionListComponent implements OnChanges {
 
     constructor() {}
 
+    updateTransactions() {
+        this.shownTransactions = this.transactions
+            .sort(this.selectedSort)
+            .filter(this.selectedFilter)
+            .filter((t: Transaction) =>
+                this.search
+                    ? new RegExp(this.search, 'i').test(
+                          t.credit_card.card_number
+                      )
+                    : true
+            );
+    }
+
     ngOnChanges(sChanges: SimpleChanges): void {
-        if (sChanges['transactions'] || sChanges['search']) {
-            this.transactions = sChanges['transactions'].currentValue
-                .sort(this.selectedSort)
-                .filter(this.selectedFilter)
-                .filter((t: Transaction) =>
-                    this.search
-                        ? new RegExp(this.search, 'i').test(
-                              t.credit_card.card_number
-                          )
-                        : true
-                );
+        if (sChanges['transactions']) {
+            this.updateTransactions();
         }
     }
 
@@ -60,9 +60,10 @@ export class TransactionListComponent implements OnChanges {
     searchChange(search: string) {
         if (this.debounceTimeout) {
             clearTimeout(this.debounceTimeout);
-            this.debounceTimeout = setTimeout(() => {
-                this.search = search;
-            }, 500);
         }
+        this.debounceTimeout = setTimeout(() => {
+            this.search = search;
+            this.updateTransactions();
+        }, 500);
     }
 }

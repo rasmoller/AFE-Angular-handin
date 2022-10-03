@@ -4,11 +4,12 @@ import { TransactionListComponent } from './components/transaction-list/transact
 import { TransactionAddComponent } from './components/transaction-add/transaction-add.component';
 import { RouterModule, Routes } from '@angular/router';
 import { RmUnderscorePipe } from '../pipes/rm-underscore.pipe';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
+import { TransactionListItemComponent } from './components/transaction-list-item/transaction-list-item.component';
 
 const routes: Routes = [
     {
@@ -22,11 +23,16 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [TransactionOverviewComponent, TransactionAddComponent],
+    declarations: [
+        TransactionOverviewComponent,
+        TransactionAddComponent,
+        TransactionListComponent,
+    ],
     imports: [
         CommonModule,
+        FormsModule,
         RouterModule.forChild(routes),
-        TransactionListComponent,
+        TransactionListItemComponent,
         RmUnderscorePipe,
         ReactiveFormsModule,
         MatDatepickerModule,

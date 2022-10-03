@@ -1,0 +1,16 @@
+<ng-container *ngTemplateOutlet="transOutlet"></ng-container>
+
+<ng-template #transOutlet>
+    <td>
+        {{ transaction?.credit_card?.card_number}}
+    </td>
+    <td>
+        {{ transaction?.amount }}
+    </td>
+    <td>
+        {{ transaction?.currency }}
+    </td>
+    <td>
+        {{ transaction?.date | date }}
+    </td>
+</ng-template>

@@ -1,18 +1,15 @@
 <input type="text" [ngModel]="search" (ngModelChange)="searchChange($event)" />
 
 <div *ngIf="transactions">
-    <div *ngFor="let trans of transactions.sort(selectedSort)">
-        <div *ngFor="let kv of trans | keyvalue">
-            <p>{{ kv.key | titlecase | rmUnderscore }}</p>
-            <ng-container [ngSwitch]="kv.key">
-                <p *ngSwitchCase="'credit_card'">
-                    {{ $any(kv.value).card_number }}
-                </p>
-                <p *ngSwitchCase="'date'">
-                    {{ $any(kv.value) | date }}
-                </p>
-                <p *ngSwitchDefault>{{ kv.value }}</p>
-            </ng-container>
-        </div>
-    </div>
+    <table>
+        <thead>
+            <td>Credit card</td>
+            <td>Amount</td>
+            <td>Currency</td>
+            <td>Date</td>
+        </thead>
+        <tr *ngFor="let trans of shownTransactions">
+            <app-transaction-list-item [transaction]="trans"></app-transaction-list-item>
+        </tr>
+    </table>
 </div>
