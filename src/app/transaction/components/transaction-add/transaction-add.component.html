@@ -41,6 +41,10 @@
         ><br />
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker #picker></mat-datepicker>
+        <br />
+        <label for="comment">Comment: </label>
+        <input type="text" formControlName="comment" />
     </div>
+
     <button type="submit" [disabled]="transactionForm.invalid">Submit</button>
 </form>
