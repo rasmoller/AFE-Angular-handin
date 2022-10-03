@@ -25,10 +25,10 @@ export class CreditCardService {
     }
 
     addCreditCard(newCC: CreditCard): Observable<CreditCard> {
-        return this.http.post<CreditCard>(this.url + '/credit_cards', newCC);
+        return this.http.post<CreditCard>(this.url + '/cards', newCC);
     }
 
     removeCreditCard(cardNumber: CreditCard['card_number']) {
-        return this.http.delete(this.url + '/credit_cards/' + cardNumber);
+        return this.http.delete(this.url + '/cards/' + cardNumber);
     }
 }

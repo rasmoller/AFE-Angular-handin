@@ -1,42 +1,39 @@
 <div *ngIf="card$ | async as card">
     <div>
+        <p>Card number</p>
         <p>
-            Card number
-        </p>
-        <p>
-            {{card.card_number}}
+            {{ card.card_number }}
         </p>
     </div>
     <div>
+        <p>Cardholder name</p>
         <p>
-            Cardholder name
-        </p>
-        <p>
-            {{card.cardholder_name}}
+            {{ card.cardholder_name }}
         </p>
     </div>
     <div>
+        <p>CSC code</p>
         <p>
-            CSC code
-        </p>
-        <p>
-            {{card.csc_code}}
+            {{ card.csc_code }}
         </p>
     </div>
     <div>
+        <p>Expiration date</p>
         <p>
-            Expiration date
-        </p>
-        <p>
-            {{card | expirationDate}}
+            {{ card | expirationDate }}
         </p>
     </div>
     <div>
+        <p>Issuer</p>
         <p>
-            Issuer
+            {{ card.issuer }}
         </p>
-        <p>
-            {{card.issuer}}
-        </p>
+    </div>
+    <div *ngIf="transactions$ | async as transies">
+        <p>List of transactions:</p>
+        <app-transaction-list
+            [transactions]="transies"
+            [showSearch]="false"
+        ></app-transaction-list>
     </div>
 </div>

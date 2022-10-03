@@ -26,7 +26,7 @@ export class TransactionAddComponent implements OnInit {
     transactionForm = this.formBuilder.group({
         credit_card: ['', Validators.required], //vælg fra liste + req
         amount: ['', [this.amountValidation]], //must be number + req + positive
-        currencies: ['', Validators.required], //req
+        currency: ['', Validators.required], //req
         comment: [''], //not req
         date: ['', Validators.required], //req
     });
@@ -57,7 +57,7 @@ export class TransactionAddComponent implements OnInit {
             .createTransaction(formValueWithCorrectDate)
             .subscribe((res) => {
                 if (res) {
-                    this.router.navigate(['/']);
+                    this.router.navigate(['/transaction']);
                 }
             });
     }

@@ -1,4 +1,9 @@
-<input type="text" [ngModel]="search" (ngModelChange)="searchChange($event)" />
+<input
+    *ngIf="showSearch"
+    type="text"
+    [ngModel]="search"
+    (ngModelChange)="searchChange($event)"
+/>
 
 <div *ngIf="transactions">
     <table>
@@ -9,7 +14,9 @@
             <td>Date</td>
         </thead>
         <tr *ngFor="let trans of shownTransactions">
-            <app-transaction-list-item [transaction]="trans"></app-transaction-list-item>
+            <app-transaction-list-item
+                [transaction]="trans"
+            ></app-transaction-list-item>
         </tr>
     </table>
 </div>

@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ExpirationDatePipe } from './pipes/expiration-date.pipe';
 import { RmUnderscorePipe } from '../pipes/rm-underscore.pipe';
+import { TransactionListComponent } from '../transaction/components/transaction-list/transaction-list.component';
 
 const routes: Routes = [
     {
@@ -37,6 +38,7 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         ReactiveFormsModule,
         RmUnderscorePipe,
+        TransactionListComponent,
     ],
     exports: [RouterModule],
 })

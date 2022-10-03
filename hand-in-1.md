@@ -34,7 +34,7 @@ The solution will provide the accounting department with an overview of use for 
 
 -   `F3.1` Screen shall contain elements displaying the following credit card properties: `card_number`, `cardholder_name`, `csc_code`, `expiration_date_month`, `expiration_date_year`, `issuer`
 -   `F3.2` Screen shall contain the option to remove the credit card _MISSING_
--   `F3.3` Screen shall contain a list of transactions for the credit card _MISSING_
+-   `F3.3` Screen shall contain a list of transactions for the credit card
 
 `F4` Add credit card screen
 
@@ -52,19 +52,19 @@ The solution will provide the accounting department with an overview of use for 
 
 `F5` Transactions screen
 
--   `F5.1` Screen shall show a list of all transactions registered in the system _MISSING?_
--   `F5.1.2` Screen shall present the option to add a transaction to the transaction list _MISSING_
+-   `F5.1` Screen shall show a list of all transactions registered in the system
+-   `F5.1.2` Screen shall present the option to add a transaction to the transaction list
 -   `F5.1.3` Screen shall present the option to filter transactions _MISSING_
--   `F5.1.4` Screen shall provide filtering based on `card_number` _MISSING_
+-   `F5.1.4` Screen shall provide filtering based on `card_number`
 
 `F6` Transactions list
 
--   `F6.1.1` Each transaction shall display properties `credit_card`, `amount`, `currency`, `comment`, `date` _CHECK_
--   `F6.1.2` Field `credit_card` shall be selected from a list of credit cards _CHECK_
+-   `F6.1.1` Each transaction shall display properties `credit_card`, `amount`, `currency`, `comment`, `date` _MISSING comment_
+-   `F6.1.2` Field `credit_card` shall be selected from a list of credit cards
 -   `F6.1.3` Field `amount` must be a `number`
 -   `F6.1.4` Field `amount` is required
 -   `F6.1.5` Field `currency` is required
--   `F6.1.6` Field `date` is required _MISSING_
+-   `F6.1.6` Field `date` is required
 -   `F6.1.7` Each transaction shall present the option to remove itself _MISSING_
 
 ## Design requirements
@@ -76,7 +76,7 @@ Futhermore, the solution must include the following:
 -   [x] The application must implement at least one custom pipe <sup>(<a href="https://angular.io/guide/pipes#creating-pipes-for-custom-data-transformations">docs</a>)</sup> _Hint: Obvious candidates could be expiration date_
 -   [x] At least one module must contain a routing module<sup>(<a href="https://angular.io/guide/lazy-loading-ngmodules">docs</a>)</sup>
 -   [x] At least one component must be standalone<sup>(<a href="https://angular.io/guide/standalone-components">docs</a>)</sup>
--   [ ] The application must be seeded with data from the server found @ `hand-in/credit-card-server`
+-   [x] The application must be seeded with data from the server found @ `hand-in/credit-card-server`
 
 # Credit card server documentation
 

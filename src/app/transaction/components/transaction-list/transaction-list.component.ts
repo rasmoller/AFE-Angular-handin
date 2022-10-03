@@ -1,13 +1,19 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Transaction } from '@Types/transaction/transaction';
+import { TransactionListItemComponent } from '../transaction-list-item/transaction-list-item.component';
 
 @Component({
+    standalone: true,
+    imports: [TransactionListItemComponent, CommonModule, FormsModule],
     selector: 'app-transaction-list',
     templateUrl: './transaction-list.component.html',
     styleUrls: ['./transaction-list.component.scss'],
 })
 export class TransactionListComponent implements OnChanges {
     @Input() transactions: Transaction[] = [];
+    @Input() showSearch: Boolean = true;
 
     shownTransactions: Transaction[] = [];
     search: string = '';
@@ -22,7 +28,7 @@ export class TransactionListComponent implements OnChanges {
         {
             name: 'Amount over 100',
             filter: (t: Transaction): boolean => {
-                return t.amount > 100;
+                return t.amount > 0;
             },
         },
     ];

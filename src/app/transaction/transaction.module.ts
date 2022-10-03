@@ -23,11 +23,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [
-        TransactionOverviewComponent,
-        TransactionAddComponent,
-        TransactionListComponent,
-    ],
+    declarations: [TransactionOverviewComponent, TransactionAddComponent],
     imports: [
         CommonModule,
         FormsModule,
@@ -38,6 +34,7 @@ const routes: Routes = [
         MatDatepickerModule,
         MatNativeDateModule,
         MatFormFieldModule,
+        TransactionListComponent,
     ],
     exports: [RouterModule],
 })
