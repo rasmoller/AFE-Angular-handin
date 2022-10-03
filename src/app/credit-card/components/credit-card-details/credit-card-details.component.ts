@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CreditCard } from '@Types/credit-card/credit-card';
 import { Transaction } from '@Types/transaction/transaction';
 import { switchMap, Observable, of, tap, filter, map } from 'rxjs';
@@ -18,7 +18,8 @@ export class CreditCardDetailsComponent implements OnInit {
     constructor(
         private creditcardService: CreditCardService,
         private transactionService: TransactionService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router
     ) {
         this.route.paramMap.subscribe((p) => {
             const cardNumber = p.get('card_number');
@@ -38,4 +39,11 @@ export class CreditCardDetailsComponent implements OnInit {
     }
 
     ngOnInit(): void {}
+
+    onDelete(cardNumber: string) {
+        this.creditcardService.removeCreditCard(cardNumber).subscribe(() => {
+            console.log('Credit card removed');
+            this.router.navigate(['/transaction']);
+        });
+    }
 }

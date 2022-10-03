@@ -29,6 +29,7 @@
             {{ card.issuer }}
         </p>
     </div>
+    <button (click)="onDelete(card.card_number)">Delete</button>
     <div *ngIf="transactions$ | async as transies">
         <p>List of transactions:</p>
         <app-transaction-list
