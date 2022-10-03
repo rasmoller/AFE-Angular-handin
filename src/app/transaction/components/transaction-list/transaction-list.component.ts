@@ -28,7 +28,7 @@ export class TransactionListComponent implements OnChanges {
         {
             name: 'Amount over 100',
             filter: (t: Transaction): boolean => {
-                return t.amount > 0;
+                return t.amount > 100;
             },
         },
     ];

@@ -59,7 +59,7 @@ The solution will provide the accounting department with an overview of use for 
 
 `F6` Transactions list
 
--   `F6.1.1` Each transaction shall display properties `credit_card`, `amount`, `currency`, `comment`, `date` _MISSING comment_
+-   `F6.1.1` Each transaction shall display properties `credit_card`, `amount`, `currency`, `comment`, `date`
 -   `F6.1.2` Field `credit_card` shall be selected from a list of credit cards
 -   `F6.1.3` Field `amount` must be a `number`
 -   `F6.1.4` Field `amount` is required
