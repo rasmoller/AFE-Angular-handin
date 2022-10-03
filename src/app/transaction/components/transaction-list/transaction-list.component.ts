@@ -56,6 +56,14 @@ export class TransactionListComponent implements OnChanges {
             );
     }
 
+    onFilterChange(filter: {
+        filter: (arg0: Transaction) => boolean;
+        name: string;
+    }) {
+        this.selectedFilter = filter.filter;
+        this.updateTransactions();
+    }
+
     ngOnChanges(sChanges: SimpleChanges): void {
         if (sChanges['transactions']) {
             this.updateTransactions();

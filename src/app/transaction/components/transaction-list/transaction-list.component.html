@@ -4,6 +4,9 @@
     [ngModel]="search"
     (ngModelChange)="searchChange($event)"
 />
+<select [ngModel]="selectedFilter" (ngModelChange)="onFilterChange($event)">
+    <option *ngFor="let filter of filters" [ngValue]="filter">{{filter.name}}</option>
+</select>
 
 <div *ngIf="transactions">
     <table>
