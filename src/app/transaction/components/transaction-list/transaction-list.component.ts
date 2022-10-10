@@ -27,9 +27,25 @@ export class TransactionListComponent implements OnChanges {
             },
         },
         {
+            name: 'Last 10 days',
+            filter: (t: Transaction): boolean => {
+                const transTime = new Date(t.date).getTime();
+                const today = new Date().getTime();
+                const tenDaysAgo =
+                    new Date().getTime() - 1000 * 60 * 60 * 24 * 10;
+                return transTime < today && transTime > tenDaysAgo;
+            },
+        },
+        {
+            name: 'Amount under 100',
+            filter: (t: Transaction): boolean => {
+                return t.amount < 100;
+            },
+        },
+        {
             name: 'Amount over 100',
             filter: (t: Transaction): boolean => {
-                return t.amount > 100;
+                return t.amount >= 100;
             },
         },
     ];

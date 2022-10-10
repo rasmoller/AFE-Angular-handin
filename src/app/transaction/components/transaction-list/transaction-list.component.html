@@ -5,7 +5,7 @@
     (ngModelChange)="searchChange($event)"
 />
 <select [ngModel]="selectedFilter" (ngModelChange)="onFilterChange($event)">
-    <option [ngValue]="">No filter</option>
+    <option [ngValue]="undefined">No filter</option>
     <option *ngFor="let filter of filters" [ngValue]="filter">{{filter.name}}</option>
 </select>
 
